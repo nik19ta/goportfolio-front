@@ -15,6 +15,7 @@ import { RootState } from './app/store';
 import Storage from './utils/storage'
 import { setToken } from './features/auth/authSlice';
 import { decode } from './utils/decodeToken';
+import UserContainer from './features/user/User';
 
 const App: React.FC = () => {
   let navigate = useNavigate();
@@ -47,7 +48,8 @@ const App: React.FC = () => {
             <Route path="login" element={<Login />} />
             <Route path="registration" element={<Registration />} />
           </Route>
-          <Route path=":username" element={<User />}>
+          <Route path=":username" element={<UserContainer />}>
+            <Route index element={<User />} />
             <Route path="project/:id" element={<Project />} />
           </Route>
         </Route>
