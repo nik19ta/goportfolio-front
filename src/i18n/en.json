@@ -1,0 +1,20 @@
+{
+  "auth": {
+    "login_title": "Login",
+    "reg_title": "Registration",
+    "form": {
+      "email": "Email",
+      "email_placeholder": "example@gmail.com",
+      "password": "Password",
+      "password_placeholder": "your password",
+      "username": "Username",
+      "username_placeholder": "your username",
+      "login_submit_btn": "Login",
+      "reg_submit_btn": "Registration",
+      "no_account": "No accaunt ?",
+      "create_account": "Create accaunt",
+      "already_have_an_account": "Already have an account ?",
+      "sign_in": "Sign in"
+    }
+  }
+}

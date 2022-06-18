@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 
 // For ant.d 
 import 'antd/dist/antd.css';
+
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import Container from './pages/container/Container';
 import HomeScreen from './pages/home/HomeScreen';
@@ -17,10 +18,11 @@ import { setToken } from './features/auth/authSlice';
 import { decode } from './utils/decodeToken';
 import UserContainer from './features/user/User';
 
+
 const App: React.FC = () => {
   let navigate = useNavigate();
   let location = useLocation();
-  
+
   const dispatch = useAppDispatch()
   const token = useAppSelector((state: RootState) => state.auth.token)
   
@@ -31,9 +33,7 @@ const App: React.FC = () => {
         dispatch(setToken(usertoken))
       }
 
-      if ((location.pathname !== "/auth/login" && location.pathname !== "/auth/registration") && usertoken === null || usertoken === "") {
-        navigate("/auth/login", { replace: true });
-      } else if (Storage.get("api_token") !== null && location.pathname.indexOf('auth/') !== -1) {
+      if (Storage.get("api_token") !== null && location.pathname.indexOf('auth/') !== -1) {
         navigate("/" + decode(usertoken!).shortname, { replace: true });
       }
 

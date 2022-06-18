@@ -1,0 +1,19 @@
+ :root {
+  /* colors for light theme */
+   --light-bg: #FFFFFF;
+   --light-border: #D6D6D6;
+   --light-input: #F6F8FA;
+   --light-color: #37352F;
+   --light-primary: #238636;
+   --light-primary-color: #FAFAFB;
+   --light-link: #4283C4;
+ }
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
