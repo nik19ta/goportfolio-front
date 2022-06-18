@@ -1,0 +1,52 @@
+.tabs {
+  display: flex;
+}
+
+.tab {
+  margin-right: 16px;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 19px;
+
+  color: var(--light-color);
+  position: relative;
+
+  cursor: pointer;
+}
+
+.options {
+  display: flex;
+  position: absolute;
+  top: -30px;
+}
+
+.active_tab::after {
+  content: "";
+  position: absolute;
+
+  left: 0;
+  top: 20px;
+
+  height: 3px;
+  width: 100%;
+
+  border-radius: 2px;
+
+  background: var(--light-gradient-start);
+  background: linear-gradient(90deg, var(--light-gradient-start) 0%, var(--light-gradient-end) 100%);
+}
+
+.edit_icon {
+  background: #ffffff;
+  border: 1px solid #d6d6d6;
+  border-radius: 5px;
+  z-index: 9;
+}
+.delete_icon {
+  background: #ffffff;
+  border: 1px solid #d6d6d6;
+  border-radius: 5px;
+  z-index: 9;
+  margin-left: 5px;
+}

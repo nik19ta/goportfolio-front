@@ -12,7 +12,6 @@ const initialState: AuthState = {
   load: false
 };
 
-
 export const loginUser = createAsyncThunk('Auth/Login', async (body: LoginBody) => {
     const response = await fetchLogin(body);
     

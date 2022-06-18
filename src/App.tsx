@@ -49,8 +49,9 @@ const App: React.FC = () => {
             <Route path="registration" element={<Registration />} />
           </Route>
           <Route path=":username" element={<UserContainer />}>
-            <Route index element={<User />} />
-            <Route path="project/:id" element={<Project />} />
+            <Route path='' element={<User />} >
+              <Route path="project/:id" element={<Project />} />
+            </Route>
           </Route>
         </Route>
       </Routes>

@@ -7,6 +7,8 @@
    --light-primary: #238636;
    --light-primary-color: #FAFAFB;
    --light-link: #4283C4;
+   --light-gradient-start: #fc1612;
+   --light-gradient-end: #6908a5;
  }
 
 body {

@@ -6,7 +6,7 @@ import styles from './User.module.css';
 
 const UserContainer: React.FC = () => {
     return (
-        <div className={styles.container} style={{paddingTop: "60px"}} >
+        <div className={styles.container} style={{paddingTop: "10px"}} >
             <div className={styles.content}  >
                 <Outlet></Outlet>
             </div>

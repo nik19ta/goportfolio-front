@@ -1,21 +1,22 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { CreateProjectResp, ProjectState } from '../../interfaces/project';
 import { errNotification, successNotification } from '../../utils/notification';
+import { getProjects } from '../user/userSlice';
 
-import { fetchCreateProject, fetchDeleteProject, fetchRenameProject } from './projectAPI';
+import { deleteCategory, editCategory, fetchCreateNewCategory, fetchCreateProject, fetchDeleteProject, fetchRenameProject, fetchSetPrewiew, fetchSetState } from './projectAPI';
 
 const initialState: ProjectState = {} as ProjectState;
 
 
-export const createProject = createAsyncThunk('Project/CreateProject', async (projectname: string) => {
-    const response = await fetchCreateProject(projectname);
+export const createProject = createAsyncThunk('Project/CreateProject', async (category_uuid: string) => {
+    const response = await fetchCreateProject(category_uuid);
     if (response.status == 200) {
         successNotification("Новый проект успешно создан", "")
     } else {
         errNotification("Ошибка при создании проекта", "Что то пошло не так")
     }
 
-    return
+    return {category_uuid, uuid: response.data.project }
 });
 
 export const deleteProject = createAsyncThunk('Project/DeleteProject', async (uuid: string) => {
@@ -26,12 +27,36 @@ export const deleteProject = createAsyncThunk('Project/DeleteProject', async (uu
         errNotification("Ошибка при удаленние проекта", "Что то пошло не так")
     }
 
-    return
+    return uuid
 });
 
 export const renameProject = createAsyncThunk('Project/RenameProject', async (data: {uuid: string, title: string}) => {
-    await fetchRenameProject(data.uuid, data.title);
-    return
+  await fetchRenameProject(data.uuid, data.title);
+    return {uuid: data.uuid, title: data.title}
+});
+
+export const chengePhoto = createAsyncThunk('Project/ChengePhotoProject', async (data: {uuid: string, image: File}) => {
+  const resp = await fetchSetPrewiew(data.uuid, data.image);
+  return {uuid: data.uuid, prewiew: resp.data.upload}
+});
+export const SetStateProject = createAsyncThunk('Project/ChengeState', async (data: {uuid: string, state: number}) => {
+  await fetchSetState(data.uuid, data.state);
+  return {uuid: data.uuid, state: data.state}
+});
+
+export const CreateNewCategory = createAsyncThunk('Category/Create', async (title: string) => {
+  const resp = await fetchCreateNewCategory(title);
+  return {created: resp.data.created, title}
+});
+
+export const changeExistingCategory = createAsyncThunk('Category/Edit', async (data: {uuid: string, title: string}) => {
+  await editCategory(data.uuid, data.title)
+  return {uuid: data.uuid, title: data.title}
+});
+
+export const deleteExistingCategory = createAsyncThunk('Category/Delete', async (uuid: string) => {
+  await deleteCategory(uuid)
+  return uuid
 });
 
 export const ProjectSlice = createSlice({
@@ -50,7 +75,7 @@ export const ProjectSlice = createSlice({
       .addCase(deleteProject.pending, (state) => {
         state.load_delete_project = true;
       })
-      .addCase(deleteProject.fulfilled, (state, action) => {
+      .addCase(deleteProject.fulfilled, (state) => {
         state.load_delete_project = true;
       })
       .addCase(renameProject.pending, (state) => {})

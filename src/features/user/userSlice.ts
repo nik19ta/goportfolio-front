@@ -1,7 +1,8 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState, AppThunk } from '../../app/store';
-import { UserState } from '../../interfaces/user';
+import { Project, UserState } from '../../interfaces/user';
 import { errNotification, successNotification } from '../../utils/notification';
+import { changeExistingCategory, chengePhoto, CreateNewCategory, createProject, deleteExistingCategory, deleteProject, renameProject, SetStateProject } from '../project/projectSlice';
 
 import { fetchCategories, fetchProfile, fetchProjects } from './userAPI';
 
@@ -80,6 +81,88 @@ export const UserSlice = createSlice({
         state.load = false;
         state.projects = action.payload
       })
+
+      // Если мы создаём новый проект
+      .addCase(createProject.fulfilled, (state, action) => {
+        state.projects.push({
+          uuid: action.payload.uuid,
+          category_uuid: action.payload.category_uuid,
+          name: "untitled",
+          prewiew: "empty",
+          state: 1
+        })
+      })
+
+      // Если проект успешно удалился
+      .addCase(deleteProject.fulfilled, (state, action) => {
+        const array: Project[] = []
+
+        for (let i = 0; i < state.projects.length; i++) {
+          const element = state.projects[i];
+          if (element.uuid !== action.payload) array.push(element)
+        }
+
+        state.projects = array
+      })
+
+      // Если проект переменовали
+      .addCase(renameProject.fulfilled, (state, action) => {
+        for (let i = 0; i < state.projects.length; i++) {
+          if (state.projects[i].uuid === action.payload.uuid) {
+            state.projects[i].name = action.payload.title
+          }
+        }
+      })
+
+      // Если мы меняем превью проекта
+      .addCase(chengePhoto.fulfilled, (state, action) => {
+        for (let i = 0; i < state.projects.length; i++) {
+          if (state.projects[i].uuid === action.payload.uuid) {
+            state.projects[i].prewiew = action.payload.prewiew
+          }
+        }
+      })
+
+      // Если поменяли состояние проекта 
+      .addCase(SetStateProject.fulfilled, (state, action) => {
+        for (let i = 0; i < state.projects.length; i++) {
+          if (state.projects[i].uuid === action.payload.uuid) {
+            state.projects[i].state = action.payload.state
+          }
+        }
+      })
+
+      // Если добавили новую категорию
+      .addCase(CreateNewCategory.fulfilled, (state, action) => {
+        state.categories.push({
+          uuid: action.payload.created,
+          user_uuid: state.categories[0].user_uuid,
+          name: action.payload.title
+        })
+      })
+
+      // Если изминили категорию
+      .addCase(changeExistingCategory.fulfilled, (state, action) => {
+        for (let i = 0; i < state.categories.length; i++) {
+          if (state.categories[i].uuid == action.payload.uuid) {
+            state.categories[i].name = action.payload.title
+          }
+        }
+      })
+
+      // Если удалили категорию
+      .addCase(deleteExistingCategory.fulfilled, (state, action) => {
+        const new_array = []
+
+        for (let i = 0; i < state.categories.length; i++) {
+          if (state.categories[i].uuid !== action.payload) {
+            new_array.push(state.categories[i])
+          }
+        }
+
+        state.categories = new_array      
+      })
+
   },
 });
 

@@ -16,5 +16,8 @@
       "already_have_an_account": "Уже есть аккаунт ?",
       "sign_in": "Войти"
     }
+  },
+  "portfolio": {
+    "title": "Портфолио"
   }
 }
