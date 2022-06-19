@@ -52,5 +52,5 @@ export interface OpenedProject {
         uuid: string
         project_uuid: string
         value: string
-    }
+    }[]
 }

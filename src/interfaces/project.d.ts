@@ -50,5 +50,5 @@ export interface RespGetProjectById {
         uuid: string
         project_uuid: string
         value: string
-    }
+    }[]
 }

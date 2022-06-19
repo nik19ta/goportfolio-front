@@ -3,7 +3,7 @@ import { RootState, AppThunk } from '../../app/store';
 import { RespGetProjectById } from '../../interfaces/project';
 import { OpenedProject, Project, UserState } from '../../interfaces/user';
 import { errNotification, successNotification } from '../../utils/notification';
-import { changeExistingCategory, chengePhoto, CreateNewCategory, createProject, deleteExistingCategory, deleteProject, renameProject, SetStateProject } from '../project/projectSlice';
+import { AddDescritionToProject, addPhotoProject, changeExistingCategory, chengePhoto, CreateNewCategory, createProject, deleteExistingCategory, deleteProject, renameProject, SetStateProject } from '../project/projectSlice';
 
 import { fetchCategories, fetchProfile, fetchProjects, getProjectByUUID } from './userAPI';
 
@@ -140,6 +140,12 @@ export const UserSlice = createSlice({
 
       // Если добавили новую категорию
       .addCase(CreateNewCategory.fulfilled, (state, action) => {
+        console.log({
+          uuid: action.payload.created,
+          user_uuid: state.categories[0].user_uuid,
+          name: action.payload.title
+        });
+        
         state.categories.push({
           uuid: action.payload.created,
           user_uuid: state.categories[0].user_uuid,
@@ -169,6 +175,25 @@ export const UserSlice = createSlice({
         state.categories = new_array      
       })
 
+      // Если lобавили фото
+      .addCase(addPhotoProject.fulfilled, (state, action) => {
+        state.active_project.photos.push({
+          project_uuid: "",
+          photo_uuid: action.payload.uuid,
+          src: action.payload.photo,
+          type: 0
+        })
+      })
+
+      // Если lобавили Текст
+      .addCase(AddDescritionToProject.fulfilled, (state, action) => {
+        state.active_project.descriptions.push({
+          uuid: action.payload.uuid,
+          project_uuid: action.payload.project_uuid,
+          value: action.payload.text
+        })
+      })
+
       // Если открыли проект
       .addCase(getProjectById.fulfilled, (state, action) => {
         const opened_project = {
@@ -191,10 +216,8 @@ export const UserSlice = createSlice({
               return {
                 content: item.split("&")[1],
                 type: item.split("&")[0]
-              }});
-
+              }});     
         }
-        
         opened_project.project.category_uuid = action.payload!.project.category_uuid
         opened_project.project.name = action.payload!.project.name
         opened_project.project.prewiew = action.payload!.project.prewiew

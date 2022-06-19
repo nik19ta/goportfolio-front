@@ -3,7 +3,7 @@ import { CreateProjectResp, ProjectState } from '../../interfaces/project';
 import { errNotification, successNotification } from '../../utils/notification';
 import { getProjects } from '../user/userSlice';
 
-import { deleteCategory, editCategory, fetchCreateNewCategory, fetchCreateProject, fetchDeleteProject, fetchRenameProject, fetchSetPrewiew, fetchSetState } from './projectAPI';
+import { addTextToProject, deleteCategory, editCategory, fetchAddPhoto, fetchCreateNewCategory, fetchCreateProject, fetchDeleteProject, fetchRenameProject, fetchSetPrewiew, fetchSetState } from './projectAPI';
 
 const initialState: ProjectState = {} as ProjectState;
 
@@ -39,6 +39,13 @@ export const chengePhoto = createAsyncThunk('Project/ChengePhotoProject', async 
   const resp = await fetchSetPrewiew(data.uuid, data.image);
   return {uuid: data.uuid, prewiew: resp.data.upload}
 });
+
+export const addPhotoProject = createAsyncThunk('Project/AddPhotoProject', async (data: {uuid: string, image: File}) => {
+  
+  const resp = await fetchAddPhoto(data.uuid, data.image);
+  return {uuid: data.uuid, photo: resp.data.upload}
+});
+
 export const SetStateProject = createAsyncThunk('Project/ChengeState', async (data: {uuid: string, state: number}) => {
   await fetchSetState(data.uuid, data.state);
   return {uuid: data.uuid, state: data.state}
@@ -57,6 +64,11 @@ export const changeExistingCategory = createAsyncThunk('Category/Edit', async (d
 export const deleteExistingCategory = createAsyncThunk('Category/Delete', async (uuid: string) => {
   await deleteCategory(uuid)
   return uuid
+});
+
+export const AddDescritionToProject = createAsyncThunk('Project/AddDescription', async (data: {uuid: string, text: string}) => {
+  const resp = await addTextToProject(data.uuid, data.text)
+  return {uuid: resp.data.description_id, text: data.text, project_uuid: data.uuid}
 });
 
 export const ProjectSlice = createSlice({

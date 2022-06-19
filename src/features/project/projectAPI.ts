@@ -59,12 +59,42 @@ export const deleteCategory = async (uuid: string): Promise<AxiosResponse<any>> 
     return response
 }
 
+// Добавить текст
+export const addTextToProject = async (uuid: string, text: string): Promise<AxiosResponse<{description_id: string}>> => {
+    const url = `${process.env.REACT_APP_SERVER_HOST}/api/project/create/description`
+    const response: AxiosResponse<{description_id: string}> = await client().post(url, {
+      text: text, 
+      uuid: uuid
+    })
+    return response
+}
+
 // Изменить prewiew проекта 
 export const fetchSetPrewiew = async (uuid: string, selectedFile: any) => {
+  console.log("ADD PREWIEW");
     const formData = new FormData();
     formData.append("file", selectedFile);
     formData.append("photo_type", "prewiew");
     formData.append("project_uuid", uuid);
+
+    const response: AxiosResponse<ChangePrewiewProject> = await client()({
+      method: "put",
+      url: `${process.env.REACT_APP_SERVER_HOST}/api/project/photo`,
+      data: formData,
+      headers: { "Content-Type": "multipart/form-data" },
+    });
+
+    return response
+}
+
+// Добавить изображение для проекта 
+export const fetchAddPhoto = async (uuid: string, selectedFile: any) => {
+  console.log("ADD PHOTO");
+  
+    const formData = new FormData();
+    formData.append("photo_type", "desktop");
+    formData.append("project_uuid", uuid);
+    formData.append("file", selectedFile);
 
     const response: AxiosResponse<ChangePrewiewProject> = await client()({
       method: "put",
