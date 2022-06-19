@@ -1,13 +1,13 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState, AppThunk } from '../../app/store';
-import { Project, UserState } from '../../interfaces/user';
+import { RespGetProjectById } from '../../interfaces/project';
+import { OpenedProject, Project, UserState } from '../../interfaces/user';
 import { errNotification, successNotification } from '../../utils/notification';
 import { changeExistingCategory, chengePhoto, CreateNewCategory, createProject, deleteExistingCategory, deleteProject, renameProject, SetStateProject } from '../project/projectSlice';
 
-import { fetchCategories, fetchProfile, fetchProjects } from './userAPI';
+import { fetchCategories, fetchProfile, fetchProjects, getProjectByUUID } from './userAPI';
 
 const initialState: UserState = {} as UserState;
-
 
 export const getProfile = createAsyncThunk('User/GetProfile', async (username: string) => {
     const response = await fetchProfile(username);
@@ -49,6 +49,12 @@ export const getProjects = createAsyncThunk('User/GetProjects', async (username:
         return []
     }
 });
+
+export const getProjectById = createAsyncThunk('User/GetProjectById', async (uuid: string) => {
+    const response = await getProjectByUUID(uuid);
+    return response.data;
+});
+
 
 export const UserSlice = createSlice({
   name: 'User',
@@ -161,6 +167,42 @@ export const UserSlice = createSlice({
         }
 
         state.categories = new_array      
+      })
+
+      // Если открыли проект
+      .addCase(getProjectById.fulfilled, (state, action) => {
+        const opened_project = {
+          project: {},
+          photos: [],
+          descriptions: [],
+        } as unknown as OpenedProject
+        if (action.payload?.photos) {
+          opened_project.photos = action.payload?.photos
+        }
+        
+        if (action.payload?.descriptions) {
+          opened_project.descriptions = action.payload?.descriptions
+        }
+
+        if (action.payload!.project.contents !== "") {    
+          opened_project.project.contents = action.payload!.project.contents
+            .split(",")
+            .map(item => {
+              return {
+                content: item.split("&")[1],
+                type: item.split("&")[0]
+              }});
+
+        }
+        
+        opened_project.project.category_uuid = action.payload!.project.category_uuid
+        opened_project.project.name = action.payload!.project.name
+        opened_project.project.prewiew = action.payload!.project.prewiew
+        opened_project.project.state = action.payload!.project.state
+        opened_project.project.user_uuid = action.payload!.project.user_uuid
+        opened_project.project.uuid = action.payload!.project.uuid
+
+        state.active_project = opened_project
       })
 
   },
