@@ -18,6 +18,8 @@ A highly focused portfolio content management system
 - Icons/modals - [ant.d](https://ant.design/)
 - For http requests - axios
 - For auth - JWT 
+- For routes - React Router v6
+- For CI/CD - GitHub Actions 
 
 ## How to run 
 
