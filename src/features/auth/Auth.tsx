@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom";
 import { useAppSelector } from "../../app/hooks";
 import { RootState } from "../../app/store";
 
-import styles from './Auth.module.css'; 
+import styles from './Auth.module.css';
 
 const Auth = () => {
     return (

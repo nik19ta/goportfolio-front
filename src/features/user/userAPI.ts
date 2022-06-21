@@ -24,7 +24,7 @@ export const fetchProjects = async (shortname: string): Promise<AxiosResponse<Pr
     return response
 }
 
-// Подтянуть проект 
+// Подтянуть проект
 export const getProjectByUUID = async (uuid: string): Promise<AxiosResponse<RespGetProjectById>> => {
     const url = `${process.env.REACT_APP_SERVER_HOST}/api/project/id?id=${uuid}`
     const response: AxiosResponse<RespGetProjectById> = await client().get(url)

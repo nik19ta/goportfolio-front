@@ -41,7 +41,7 @@ export const chengePhoto = createAsyncThunk('Project/ChengePhotoProject', async 
 });
 
 export const addPhotoProject = createAsyncThunk('Project/AddPhotoProject', async (data: {uuid: string, image: File}) => {
-  
+
   const resp = await fetchAddPhoto(data.uuid, data.image);
   return {uuid: data.uuid, photo: resp.data.upload}
 });

@@ -1,4 +1,4 @@
-# Front-end for just-portfolio.com 
+# Front-end for just-portfolio.com
 
 ## About the project
 
@@ -17,11 +17,11 @@ A highly focused portfolio content management system
 - For multilingual - i18n
 - Icons/modals - [ant.d](https://ant.design/)
 - For http requests - axios
-- For auth - JWT 
+- For auth - JWT
 - For routes - React Router v6
-- For CI/CD - GitHub Actions 
+- For CI/CD - GitHub Actions
 
-## How to run 
+## How to run
 
 ### Start for local development
 
@@ -29,13 +29,13 @@ A highly focused portfolio content management system
 2. Paste host in .env file in `REACT_APP_SERVER_HOST`
 3. Start `npm run start`
 
-### Start for production 
+### Start for production
 
 1. Build react `npm run build`
 2. [Configure Nginx](https://github.com/nik19ta/just-portfolio#configuration-nginx)
 3. Сopy files to server `rsync  --archive --compress --delete . username@host:/var/www/project_name/html`
 
-## Screenshots 
+## Screenshots
 
 ![Screenshot list of projects](./README/1.png)
 ![Screenshot project description](./README/2.png)

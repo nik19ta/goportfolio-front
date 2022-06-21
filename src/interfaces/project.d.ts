@@ -1,9 +1,9 @@
 export interface CreateProjectResp {
-    project: string    
+    project: string
 }
 
 export interface DeleteProjectResp {
-    deleted: string    
+    deleted: string
 }
 
 export interface RenameProjectResp {

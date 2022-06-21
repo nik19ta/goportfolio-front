@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-// For ant.d 
+// For ant.d
 import 'antd/dist/antd.css';
 
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
@@ -25,37 +25,37 @@ const App: React.FC = () => {
 
   const dispatch = useAppDispatch()
   const token = useAppSelector((state: RootState) => state.auth.token)
-  
+
   useEffect(() => {
-      const usertoken = Storage.get("api_token")
+    const usertoken = Storage.get("api_token")
 
-      if (usertoken && token === "") {
-        dispatch(setToken(usertoken))
-      }
+    if (usertoken && token === "") {
+    dispatch(setToken(usertoken))
+    }
 
-      if (Storage.get("api_token") !== null && location.pathname.indexOf('auth/') !== -1) {
-        navigate("/" + decode(usertoken!).shortname, { replace: true });
-      }
+    if (Storage.get("api_token") !== null && location.pathname.indexOf('auth/') !== -1) {
+    navigate("/" + decode(usertoken!).shortname, { replace: true });
+    }
 
-    }, [token])
-    
+  }, [token])
+
   return (
-    <div className="App">
-      <Routes>
-        <Route path="/" element={<Container />} >
-          <Route index element={<HomeScreen />} />
-          <Route path="auth" element={<Auth />}>
-            <Route path="login" element={<Login />} />
-            <Route path="registration" element={<Registration />} />
-          </Route>
-          <Route path=":username" element={<UserContainer />}>
-            <Route path='' element={<User />} >
-              <Route path="project/:id" element={<Project />} />
-            </Route>
-          </Route>
-        </Route>
-      </Routes>
-    </div>  
+  <div className="App">
+    <Routes>
+    <Route path="/" element={<Container />} >
+      <Route index element={<HomeScreen />} />
+      <Route path="auth" element={<Auth />}>
+      <Route path="login" element={<Login />} />
+      <Route path="registration" element={<Registration />} />
+      </Route>
+      <Route path=":username" element={<UserContainer />}>
+      <Route path='' element={<User />} >
+        <Route path="project/:id" element={<Project />} />
+      </Route>
+      </Route>
+    </Route>
+    </Routes>
+  </div>
   );
 }
 

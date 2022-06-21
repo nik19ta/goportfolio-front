@@ -27,7 +27,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "editorconfig": "editorconfig-checker",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -47,6 +47,7 @@
   },
   "devDependencies": {
     "@types/react": "^17.0.39",
-    "@types/react-dom": "^18.0.1"
+    "@types/react-dom": "^18.0.1",
+    "editorconfig-checker": "^4.0.2"
   }
 }

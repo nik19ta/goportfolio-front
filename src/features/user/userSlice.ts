@@ -129,7 +129,7 @@ export const UserSlice = createSlice({
         }
       })
 
-      // Если поменяли состояние проекта 
+      // Если поменяли состояние проекта
       .addCase(SetStateProject.fulfilled, (state, action) => {
         for (let i = 0; i < state.projects.length; i++) {
           if (state.projects[i].uuid === action.payload.uuid) {
@@ -145,7 +145,7 @@ export const UserSlice = createSlice({
           user_uuid: state.categories[0].user_uuid,
           name: action.payload.title
         });
-        
+
         state.categories.push({
           uuid: action.payload.created,
           user_uuid: state.categories[0].user_uuid,
@@ -172,7 +172,7 @@ export const UserSlice = createSlice({
           }
         }
 
-        state.categories = new_array      
+        state.categories = new_array
       })
 
       // Если lобавили фото
@@ -204,19 +204,19 @@ export const UserSlice = createSlice({
         if (action.payload?.photos) {
           opened_project.photos = action.payload?.photos
         }
-        
+
         if (action.payload?.descriptions) {
           opened_project.descriptions = action.payload?.descriptions
         }
 
-        if (action.payload!.project.contents !== "") {    
+        if (action.payload!.project.contents !== "") {
           opened_project.project.contents = action.payload!.project.contents
             .split(",")
             .map(item => {
               return {
                 content: item.split("&")[1],
                 type: item.split("&")[0]
-              }});     
+              }});
         }
         opened_project.project.category_uuid = action.payload!.project.category_uuid
         opened_project.project.name = action.payload!.project.name

@@ -4,13 +4,13 @@ export interface AuthState {
 }
 
 export interface RegistrationBody {
-    shortname: string 
-    mail: string 
-    password: string 
-    fullname: string 
+    shortname: string
+    mail: string
+    password: string
+    fullname: string
 }
 
 export interface LoginBody {
-    mail: string 
-    password: string 
+    mail: string
+    password: string
 }

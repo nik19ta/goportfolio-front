@@ -14,7 +14,7 @@ const initialState: AuthState = {
 
 export const loginUser = createAsyncThunk('Auth/Login', async (body: LoginBody) => {
     const response = await fetchLogin(body);
-    
+
     if (response.status == 200) {
         const token = await response.json();
         successNotification("Вы успешно вошли в систему", "")
@@ -66,7 +66,7 @@ export const AuthSlice = createSlice({
       .addCase(loginUser.fulfilled, (state, action) => {
         state.load = false;
         state.token = action.payload
-        
+
         Storage.set('api_token', action.payload)
       })
     // Registration
