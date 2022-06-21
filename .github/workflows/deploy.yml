@@ -30,4 +30,4 @@ jobs:
     - run: yarn
     - run: yarn install --frozen-lockfile
     - run: CI= npm run build
-    - run: cd build && rsync -e "ssh -i $HOME/.ssh/key -o StrictHostKeyChecking=no" --archive --compress --delete . nik19ta@just-portfolio.com:/var/www/seller.owsup.ru/html
+    - run: cd build && rsync -e "ssh -i $HOME/.ssh/key -o StrictHostKeyChecking=no" --archive --compress --delete . nik19ta@194.67.116.163:/var/www/seller.owsup.ru/html
