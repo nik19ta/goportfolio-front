@@ -12,7 +12,7 @@ const Header: FC = () => {
 
   const chenge_lang = (lang: "en" | "ru") => {
     console.log(lang);
-    
+
     i18n.changeLanguage(lang)
     set_lang(lang)
   }

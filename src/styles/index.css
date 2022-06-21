@@ -1,15 +1,15 @@
- :root {
+:root {
   /* colors for light theme */
-   --light-bg: #FFFFFF;
-   --light-border: #D6D6D6;
-   --light-input: #F6F8FA;
-   --light-color: #37352F;
-   --light-primary: #238636;
-   --light-primary-color: #FAFAFB;
-   --light-link: #4283C4;
-   --light-gradient-start: #fc1612;
-   --light-gradient-end: #6908a5;
- }
+  --light-bg: #FFFFFF;
+  --light-border: #D6D6D6;
+  --light-input: #F6F8FA;
+  --light-color: #37352F;
+  --light-primary: #238636;
+  --light-primary-color: #FAFAFB;
+  --light-link: #4283C4;
+  --light-gradient-start: #fc1612;
+  --light-gradient-end: #6908a5;
+}
 
 body {
   margin: 0;
