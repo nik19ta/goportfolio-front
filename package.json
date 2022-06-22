@@ -28,7 +28,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "editorconfig": "editorconfig-checker",
-    "lint": "eslint \"**/*.{ts,tsx}\""
+    "eslint": "eslint \"**/*.{ts,tsx}\""
   },
   "eslintConfig": {
     "extends": "react-app"
