@@ -8,7 +8,7 @@ interface ITabs {
     uuid: string
     user_uuid: string
     name: string
- }[]
+  }[]
   activeTab: string
   setActive: Function
 

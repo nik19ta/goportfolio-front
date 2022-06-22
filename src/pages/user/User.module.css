@@ -23,13 +23,6 @@
 .card_link {
   text-decoration: none;
   position: relative;
-
-
-  @media screen and (max-width: 440px) {
-    min-width: 100%;
-    width: 100%;
-    max-width: 100%;
- }
 }
 
 .card_link_btn {
@@ -41,12 +34,6 @@
 
   width: 346px;
   height: 185px;
-
-  @media screen and (max-width: 440px) {
-    min-width: 100%;
-    width: 100%;
-    max-width: 100%;
- }
 }
 
 .main_container_item {
@@ -58,12 +45,6 @@
   cursor: pointer;
   display: flex;
   flex-direction: column;
-
-  @media screen and (max-width: 440px) {
-    min-width: 100%;
-    width: 100%;
-    max-width: 100%;
- }
 }
 
 .main_container_item_image {
@@ -102,21 +83,6 @@
 
 .type_lable {
   display: none;
-  /* background: #ffffff;
-  border: 1px solid #d6d6d6;
-  padding: 3px;
-  position: absolute;
-  border-radius: 5px;
-  right: 15px;
-  bottom: -202px;
-  height: 20px;
-  width: 51px;
-  font-size: 12px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-weight: 600;
-  color: #37352f; */
 }
 
 .main_container_item_image_plus {

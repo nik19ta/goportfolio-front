@@ -15,9 +15,9 @@
       "create_account": "Create accaunt",
       "already_have_an_account": "Already have an account ?",
       "sign_in": "Sign in"
-   }
- },
+    }
+  },
   "portfolio": {
     "title": "Portfolio"
- }
+  }
 }

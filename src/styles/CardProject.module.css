@@ -1,7 +1,6 @@
 .card_link {
   text-decoration: none;
   position: relative;
-
 }
 
 .card_link_btn {
@@ -10,7 +9,6 @@
   background: inherit;
   border: none;
   padding: 0;
-
   width: 346px;
   height: 185px;
 }
@@ -23,12 +21,6 @@
   cursor: pointer;
   display: flex;
   flex-direction: column;
-
-  @media screen and (max-width: 440px) {
-    min-width: 100%;
-    width: 100%;
-    max-width: 100%;
- }
 }
 
 .main_container_item_image {
