@@ -1,4 +1,4 @@
-import jwt from 'jwt-decode'
+import jwt from 'jwt-decode';
 
 export interface DecodedData {
   id: string
@@ -8,4 +8,4 @@ export interface DecodedData {
 
 export const decode = (token: string): DecodedData => {
   return jwt(token);
-}
+};

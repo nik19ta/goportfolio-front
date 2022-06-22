@@ -1,121 +1,117 @@
-import { Avatar, Button, Card, Empty, Input, Modal } from "antd";
-import Meta from "antd/lib/card/Meta";
-import React, { useEffect, useState } from "react";
-import { Outlet, useLocation } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { RootState } from "../../app/store";
-import { changeExistingCategory, chengePhoto, CreateNewCategory, createProject, deleteExistingCategory, deleteProject, renameProject, SetStateProject } from "../../features/project/projectSlice";
-import { getCategories, getProfile, getProjects } from "../../features/user/userSlice";
-import { decode } from "../../utils/decodeToken";
-import CardBtnCreate from "../project/CardBtnCreate";
+import {Input, Modal} from 'antd';
+import React, {useEffect, useState} from 'react';
+import {Outlet} from 'react-router-dom';
+import {useAppDispatch, useAppSelector} from '../../app/hooks';
+import {RootState} from '../../app/store';
+import {changeExistingCategory, chengePhoto,
+  createNewCategory, createProject,
+  deleteExistingCategory, deleteProject, renameProject,
+  setStateProject} from '../../features/project/projectSlice';
+import {getCategories, getProfile,
+  getProjects} from '../../features/user/userSlice';
+import {decode} from '../../utils/decodeToken';
+import CardBtnCreate from '../project/CardBtnCreate';
 
-import Header from "../../components/Header";
+import Header from '../../components/Header';
 
-import { DeliveredProcedureOutlined} from "@ant-design/icons";
+import {DeliveredProcedureOutlined} from '@ant-design/icons';
 
 import styles from './User.module.css';
-import { fetchSetPrewiew } from "../../features/project/projectAPI";
 
-import { Link, useNavigate } from "react-router-dom";
-import Tabs from "./Tabs";
-import ProjectCard from "../project/ProjectCard";
+import {useNavigate} from 'react-router-dom';
+import Tabs from './Tabs';
+import ProjectCard from '../project/ProjectCard';
 
 
 const User: React.FC = () => {
-  let location = useLocation();
+  const token = useAppSelector((state: RootState) => state.auth.token);
+  const username = location.pathname.split('/')[1];
 
-  const token = useAppSelector((state: RootState) => state.auth.token)
-  const username = location.pathname.split("/")[1];
+  const dispatch = useAppDispatch();
 
-  const dispatch = useAppDispatch()
+  // eslint-disable-next-line max-len
+  const categories = useAppSelector((state: RootState) => state.user.categories);
+  const projects = useAppSelector((state: RootState) => state.user.projects);
 
-  const user_info = useAppSelector((state: RootState) => state.user)
-  const categories = useAppSelector((state: RootState) => state.user.categories)
-  const projects = useAppSelector((state: RootState) => state.user.projects)
+  const [activeCategory, setActiveCategory] = useState('');
 
-  const [active_category, set_active_category] = useState("")
+  const owner = (token ? decode(token!).shortname : '') === username;
 
-  const owner = (token ? decode(token!).shortname : "") === username
-
-  let navigate = useNavigate();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(getProfile(username))
-    dispatch(getCategories(username))
-    dispatch(getProjects(username))
-  }, [])
+    dispatch(getProfile(username));
+    dispatch(getCategories(username));
+    dispatch(getProjects(username));
+  }, []);
 
   useEffect(() => {
     if (categories !== undefined) {
-      if (categories.length > 0) set_active_category(categories[0].uuid)
+      if (categories.length > 0) setActiveCategory(categories[0].uuid);
     }
-  }, [categories])
+  }, [categories]);
 
 
   // МОДАЛЬНОЕ ОКНО
-  const [isModalToken, setisModalToken] = useState("");
-  const [isModalText, setisModalText] = useState("");
+  const [isModalToken, setisModalToken] = useState('');
+  const [isModalText, setisModalText] = useState('');
 
   // Модальное окно добавления категории
-  const [isCreateCategory, setIsCreateCategory] = useState(false)
-  const [textCreateCategory, setTextCreateCategory] = useState("")
+  const [isCreateCategory, setIsCreateCategory] = useState(false);
+  const [textCreateCategory, setTextCreateCategory] = useState('');
 
   // Модальное окно изменения категории
-  const [isEditCategory, setIsEditCategory] = useState(false)
-  const [uuidEditCategory, setUuidEditCategory] = useState("")
-  const [textEditCategory, setTextEditCategory] = useState("")
+  const [isEditCategory, setIsEditCategory] = useState(false);
+  const [uuidEditCategory, setUuidEditCategory] = useState('');
+  const [textEditCategory, setTextEditCategory] = useState('');
 
   // изменение картинки
-  const [chengePhotoId, setChengePhotoId] = useState("");
-
-  const showModal = (uuid: string) => {
-    setisModalToken(uuid)
-  };
+  const [chengePhotoId, setChengePhotoId] = useState('');
 
   const handleOk = () => {
     // CLOSE
-    setisModalToken("")
+    setisModalToken('');
 
     // SAVE
     dispatch(renameProject({
       uuid: isModalToken,
-      title: isModalText
-    }))
+      title: isModalText,
+    }));
 
-    setisModalText("")
+    setisModalText('');
   };
 
   const handleOkEditCategory = () => {
     dispatch(changeExistingCategory({
       uuid: uuidEditCategory,
-      title: textEditCategory
-    }))
+      title: textEditCategory,
+    }));
 
-    setIsEditCategory(false)
-    setUuidEditCategory("")
-    setTextEditCategory("")
-  }
+    setIsEditCategory(false);
+    setUuidEditCategory('');
+    setTextEditCategory('');
+  };
   const handleCancelEditCategory = () => {
-    setIsEditCategory(false)
-    setUuidEditCategory("")
-    setTextEditCategory("")
-  }
+    setIsEditCategory(false);
+    setUuidEditCategory('');
+    setTextEditCategory('');
+  };
 
   const handleOkCreateCategory = () => {
-    dispatch(CreateNewCategory(textCreateCategory))
-    setIsCreateCategory(false)
-    setTextCreateCategory("")
-  }
+    dispatch(createNewCategory(textCreateCategory));
+    setIsCreateCategory(false);
+    setTextCreateCategory('');
+  };
 
   const handleCancel = () => {
-    setisModalToken("")
-    setisModalText("")
+    setisModalToken('');
+    setisModalText('');
   };
 
   const handleCancelCreateCategory = () => {
-    setIsCreateCategory(false)
-    setTextCreateCategory("")
-  }
+    setIsCreateCategory(false);
+    setTextCreateCategory('');
+  };
 
   // МОДАЛЬНОЕ ОКНО
 
@@ -125,101 +121,118 @@ const User: React.FC = () => {
 
       <Tabs
         tabs={categories}
-        active_tab={active_category}
-        set_active={set_active_category}
+        activeTab={activeCategory}
+        setActive={setActiveCategory}
         owner={owner}
         createNew={() => setIsCreateCategory(true)}
         editHandler={(uuid: string, title: string) => {
-          setTextEditCategory(title)
-          setUuidEditCategory(uuid)
-          setIsEditCategory(true)
+          setTextEditCategory(title);
+          setUuidEditCategory(uuid);
+          setIsEditCategory(true);
         }}
         deleteHandler={(uuid: string) => {
-          dispatch(deleteExistingCategory(uuid))
+          dispatch(deleteExistingCategory(uuid));
         }} />
 
       <Modal
-        title="Изменить категорию"
+        title='Изменить категорию'
         visible={isEditCategory}
         onOk={handleOkEditCategory}
         onCancel={handleCancelEditCategory}
-        cancelText="Отменить"
-        okText="Сохранить" >
+        cancelText='Отменить'
+        okText='Сохранить' >
 
         <Input
-          onChange={(e) => {setTextEditCategory(e.target.value) }}
+          onChange={(e) => {
+            setTextEditCategory(e.target.value);
+          }}
           value={textEditCategory}
-          prefix={<DeliveredProcedureOutlined className="site-form-item-icon" />}
-          placeholder="Новое название категории" />
+          // eslint-disable-next-line max-len
+          prefix={<DeliveredProcedureOutlined className='site-form-item-icon' />}
+          placeholder='Новое название категории' />
       </Modal>
 
       <Modal
-        title="Редактировать название проекта"
+        title='Редактировать название проекта'
         visible={isModalToken.length > 0}
         onOk={handleOk}
         onCancel={handleCancel}
-        cancelText="Отменить"
-        okText="Переменовать проект" >
+        cancelText='Отменить'
+        okText='Переменовать проект' >
 
         <Input
-          onChange={(e) => {setisModalText(e.target.value) }}
-          prefix={<DeliveredProcedureOutlined className="site-form-item-icon" />}
-          placeholder="Новое название проекта" />
+          onChange={(e) => {
+            setisModalText(e.target.value);
+          }}
+          // eslint-disable-next-line max-len
+          prefix={<DeliveredProcedureOutlined className='site-form-item-icon' />}
+          placeholder='Новое название проекта' />
       </Modal>
 
       <Modal
-        title="Создать новую категорию"
+        title='Создать новую категорию'
         visible={isCreateCategory}
         onOk={handleOkCreateCategory}
         onCancel={handleCancelCreateCategory}
-        cancelText="Отменить"
-        okText="Создать" >
+        cancelText='Отменить'
+        okText='Создать' >
 
         <Input
-          onChange={(e) => {setTextCreateCategory(e.target.value) }}
-          prefix={<DeliveredProcedureOutlined className="site-form-item-icon" />}
-          placeholder="Название новой категории" />
+          onChange={(e) => {
+            setTextCreateCategory(e.target.value);
+          }}
+          // eslint-disable-next-line max-len
+          prefix={<DeliveredProcedureOutlined className='site-form-item-icon' />}
+          placeholder='Название новой категории' />
       </Modal>
 
       <div className={styles.projects_list} >
-        {owner && active_category !== "" && <CardBtnCreate onClick={async () => {await dispatch(createProject(active_category))}} />}
+        {owner && activeCategory !== '' &&
+        <CardBtnCreate onClick={async () => {
+          await dispatch(createProject(activeCategory));
+        }} />}
 
-        {projects && projects.map(project => (
-          active_category === project.category_uuid && <ProjectCard
+        {projects && projects.map((project) => (
+          activeCategory === project.category_uuid && <ProjectCard
+            key={project.uuid}
             setState={(state: number, uuid: string) => {
-              let new_state = state;
+              let newState = state;
 
-              if (new_state === 0) new_state = 1
-              else if (new_state === 1) new_state = 2
-              else if (new_state === 2) new_state = 0
+              if (newState === 0) newState = 1;
+              else if (newState === 1) newState = 2;
+              else if (newState === 2) newState = 0;
 
-              dispatch(SetStateProject({uuid, state: new_state}))
+              dispatch(setStateProject({uuid, state: newState}));
             }}
             toHandler={(uuid: string) => {
-              navigate(`/${username}/project/${uuid}`, { replace: false });
-              document.querySelector("body")!.style!.overflow = "hidden"
+              navigate(`/${username}/project/${uuid}`, {replace: false});
+              document.querySelector('body')!.style!.overflow = 'hidden';
             }}
-            editHandler={(uuid: string) => {setisModalToken(uuid)}}
+            editHandler={(uuid: string) => {
+              setisModalToken(uuid);
+            }}
             deleteHandler={(uuid: string) => dispatch(deleteProject(uuid))}
-            setImageHandlerFirstStap={(uuid: string) => {setChengePhotoId(uuid)}}
+            setImageHandlerFirstStap={(uuid: string) => {
+              setChengePhotoId(uuid);
+            }}
             setImageHandler={(image: File) => {
               dispatch(chengePhoto({
                 uuid: chengePhotoId,
-                image: image
+                image: image,
               }));
-              setChengePhotoId("")
+              setChengePhotoId('');
             }}
             uuid={project.uuid}
             name={project.name}
             prewiew={project.prewiew}
             state={project.state}
-            owner={owner}  />
+            owner={owner} />
         ))}
       </div>
 
       <Outlet></Outlet>
     </div>
-  )
-}
+  );
+};
 
 export default User;

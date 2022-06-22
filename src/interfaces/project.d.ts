@@ -39,16 +39,16 @@ export interface RespGetProjectById {
         prewiew: string
         contents: string
         state: number
-    },
+   },
     photos: {
         photo_uuid: string
         project_uuid: string
         src: string
         type: number
-    }[]
+   }[]
     descriptions: {
         uuid: string
         project_uuid: string
         value: string
-    }[]
+   }[]
 }

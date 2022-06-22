@@ -1,10 +1,8 @@
-import { Empty } from "antd";
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react';
 
-import styles from '../../styles/CardProject.module.css'
+import styles from '../../styles/CardProject.module.css';
 
-interface ICardBtnCreate  {
+interface ICardBtnCreate {
   onClick: Function
 }
 
@@ -18,7 +16,7 @@ const CardBtnCreate: React.FC<ICardBtnCreate> = ({onClick}) => {
         </div>
       </div>
     </button>
-  )
-}
+  );
+};
 
-export default CardBtnCreate
+export default CardBtnCreate;

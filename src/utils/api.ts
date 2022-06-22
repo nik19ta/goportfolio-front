@@ -1,15 +1,16 @@
-import axios from 'axios'
+import axios from 'axios';
 
-import Storage from './storage'
+import Storage from './storage';
 
 export const client = () => {
-  const token = Storage.get('api_token')
+  const token = Storage.get('api_token');
 
   const headers: {[key: string]: string} = {
-    "content-type": "application/json",
-    "Accept": "application/json"
-  }
-  if (!!token) headers['Authorization'] = `Bearer ${token}`
+    'content-type': 'application/json',
+    'Accept': 'application/json',
+  };
 
-  return axios.create({ headers })
-}
+  if (!!token) headers['Authorization'] = `Bearer ${token}`;
+
+  return axios.create({headers});
+};
