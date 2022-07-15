@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {StrictMode} from 'react';
 
 import {createRoot} from 'react-dom/client';
 
@@ -17,7 +17,7 @@ const container = document.getElementById('root');
 const root = createRoot(container!);
 
 root.render(
-    <React.StrictMode>
+    <StrictMode>
       <I18nextProvider i18n={i18next}>
         <Provider store={store}>
           <BrowserRouter>
@@ -25,4 +25,4 @@ root.render(
           </BrowserRouter>
         </Provider>
       </I18nextProvider>
-    </React.StrictMode>);
+    </StrictMode>);
