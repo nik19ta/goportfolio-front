@@ -10,3 +10,14 @@
 .auth {
   width: 330px;
 }
+
+.aouth2_links {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.aouth2_links__item {
+  width: 48px;
+}

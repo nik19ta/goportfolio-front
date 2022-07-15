@@ -16,6 +16,7 @@ import Storage from './utils/storage';
 import {setToken} from './features/auth/authSlice';
 import {decode} from './utils/decodeToken';
 import UserContainer from './features/user/User';
+import Token from './features/token/Token';
 
 
 const App: React.FC = () => {
@@ -39,17 +40,18 @@ const App: React.FC = () => {
   }, [token]);
 
   return (
-    <div className='App'>
+    <div className="App">
       <Routes>
-        <Route path='/' element={<Container />} >
+        <Route path="/token" element={<Token />} />
+        <Route path="/" element={<Container />}>
           <Route index element={<HomeScreen />} />
-          <Route path='auth' element={<Auth />}>
-            <Route path='login' element={<Login />} />
-            <Route path='registration' element={<Registration />} />
+          <Route path="auth" element={<Auth />}>
+            <Route path="login" element={<Login />} />
+            <Route path="registration" element={<Registration />} />
           </Route>
-          <Route path=':username' element={<UserContainer />}>
-            <Route path='' element={<User />} >
-              <Route path='project/:id' element={<Project />} />
+          <Route path=":username" element={<UserContainer />}>
+            <Route path="" element={<User />}>
+              <Route path="project/:id" element={<Project />} />
             </Route>
           </Route>
         </Route>
