@@ -1,13 +1,13 @@
-# Front-end for just-portfolio.com
+# Front-end for goportfolio.nik19ta.pro
 
 ## About the project
 
 A highly focused portfolio content management system
 
-- wiew my profile on [just-portfolio](https://just-portfolio.com/nik19ta)
+- wiew my profile on [just-portfolio](https://goportfolio.nik19ta.pro/nik19ta)
 - wiew [figma](https://www.figma.com/file/ByR2BncjKvUtaWHV4GbUpI/just-portfolio.com?node-id=0%3A1)
-- wiew [back-end](https://github.com/nik19ta/just-portfolio)
-- wiew [data base](https://github.com/nik19ta/just-portfolio#db-schame) schema
+- wiew [back-end](https://github.com/nik19ta/goportfolio-back)
+- wiew [data base](https://github.com/nik19ta/goportfolio-back#db-schame) schema
 
 ### Tools
 
@@ -32,7 +32,7 @@ A highly focused portfolio content management system
 ### Start for production
 
 1. Build react `npm run build`
-2. [Configure Nginx](https://github.com/nik19ta/just-portfolio#configuration-nginx)
+2. [Configure Nginx](https://github.com/nik19ta/goportfolio-back#configuration-nginx)
 3. Сopy files to server `rsync  --archive --compress --delete . username@host:/var/www/project_name/html`
 
 ## Screenshots
